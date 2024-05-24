@@ -1,4 +1,4 @@
-package duyndph34554.fpoly.assigment_kot104
+package duyndph34554.fpoly.assigment_kot104.screen
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -21,13 +21,11 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 
@@ -35,23 +33,24 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.graphics.toColorInt
-import androidx.navigation.NavController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import duyndph34554.fpoly.assigment_kot104.R
+import duyndph34554.fpoly.assigment_kot104.navigation.nav_main
 
 
 class Welcome : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MainScreen()
+            val navController = rememberNavController()
+            nav_main(navController = navController)
         }
     }
 }
 
 @Composable
-fun WelcomeScreen(navController: NavController) {
+fun WelcomeScreen(nanController: NavHostController) {
 
     Box (
         modifier = Modifier.fillMaxSize()
@@ -68,16 +67,18 @@ fun WelcomeScreen(navController: NavController) {
         ) {
             Spacer(modifier = Modifier.height(170.dp))
             Text(text = "MAKE YOUR",
-                fontSize = 27.sp,
+                fontSize = 24.sp,
                 fontWeight = FontWeight(600),
-                color = Color("#606060".toColorInt())
+                color = Color("#606060".toColorInt()),
+                fontFamily = FontFamily.Serif
             )
             Spacer(modifier = Modifier.height(20.dp))
 
             Text(text = "HOME BEAUTIFUL",
-                fontSize = 36.sp,
+                fontSize = 30.sp,
                 fontWeight = FontWeight(700),
-                textAlign = TextAlign.Justify
+                textAlign = TextAlign.Justify,
+                fontFamily = FontFamily.Serif
             )
 
             Spacer(modifier = Modifier.padding(15.dp))
@@ -100,7 +101,7 @@ fun WelcomeScreen(navController: NavController) {
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Button(onClick = {
-                    navController.navigate("login")
+                        nanController.navigate("login")
                 },
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Color("#242424".toColorInt()),
@@ -117,27 +118,17 @@ fun WelcomeScreen(navController: NavController) {
                     )
                 }
             }
-
-
-            
         }
 
     }
 
 }
 
-@Composable
-fun MainScreen() {
-    val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = "welcome") {
-        composable("welcome") { WelcomeScreen(navController = navController)}
-        composable("login") { LoginScreen()}
-    }
-}
+
 
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun showWelcome() {
-    MainScreen()
+
 }
